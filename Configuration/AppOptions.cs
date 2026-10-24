@@ -177,6 +177,9 @@ namespace JacRed.Configuration
         /// <summary>Fast path after CF solve: curl_cffi on localhost :8192.</summary>
         public CfFetchSettings cffetch = new CfFetchSettings();
 
+        /// <summary>Фоновый «топ по популярности» для /api/v1.0/top (агрегаты активных шардов).</summary>
+        public TopSettings top = new TopSettings();
+
         public ProxySettings proxy = new ProxySettings();
 
         public SearchSettings search = new SearchSettings();

@@ -388,3 +388,12 @@ globalproxy:
     password: ""
     list:
       - socks5://127.0.0.1:9050
+
+# Фоновый «топ по популярности» (/api/v1.0/top?sort=sid|create&type=&tracker=&take=).
+# Агрегаты активных шардов в памяти; полный обход FileDB на запрос не делается.
+top:
+  enable: true
+  windowDays: 7
+  refreshMinutes: 15
+  keepRows: 5000
+  maxShardsPerTick: 20000

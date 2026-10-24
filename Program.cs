@@ -133,6 +133,7 @@ namespace JacRed
             builder.Services.AddHostedService<SyncWorker>();
             builder.Services.AddHostedService<TrackersWorker>();
             builder.Services.AddHostedService<StatsWorker>();
+            builder.Services.AddHostedService<TopWorker>();
             builder.Services.AddHostedService<FileDbWorker>();
             builder.Services.AddHostedService<TracksWorker>();
             builder.Services.AddHostedService<ParseAllResumeWorker>();

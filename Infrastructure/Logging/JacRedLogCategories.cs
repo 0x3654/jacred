@@ -15,5 +15,6 @@ namespace JacRed.Infrastructure.Logging
         public const string Config = "config";
         public const string Host = "host";
         public const string Parser = "parser";
+        public const string Top = "top";
     }
 }

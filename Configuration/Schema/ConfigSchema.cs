@@ -160,6 +160,14 @@ namespace JacRed.Configuration.Schema
                         Field("cffetch.clearanceMinutes", "int", "Cookie (мин)", "Потом отказ уводит на браузер", min: 0),
                         Field("cffetch.proxy", "string", "SOCKS", "socks5://127.0.0.1:20001 как PROXY_URL у FlareSolverr")
                     }),
+                    Group("top", "top", "Фоновая сборка топа популярности для /api/v1.0/top (агрегаты активных шардов, из памяти)", new[]
+                    {
+                        Field("top.enable", "bool", "Включить", "Воркер + эндпоинт"),
+                        Field("top.windowDays", "int", "Окно (дней)", "Шард активен — участвует в топе", min: 1),
+                        Field("top.refreshMinutes", "int", "Пересборка (мин)", "Тик воркера", min: 5),
+                        Field("top.keepRows", "int", "Строк в топе", "Сколько держать после сортировки", min: 100),
+                        Field("top.maxShardsPerTick", "int", "Чтений на тик", "Бюджет новых шардов (кэш не в счёт)", min: 100)
+                    }),
                     TrackerGroups()
                 }
             };
