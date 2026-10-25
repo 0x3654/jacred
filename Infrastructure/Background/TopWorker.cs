@@ -40,7 +40,7 @@ namespace JacRed.Infrastructure.Background
 
             while (!cancellationToken.IsCancellationRequested)
             {
-                try { TopDb.Build(); }
+                try { await TopDb.BuildAsync(cancellationToken); }
                 catch (Exception ex)
                 {
                     JacRedLog.Error(JacRedLogCategories.Top, $"error / {ex.Message}");

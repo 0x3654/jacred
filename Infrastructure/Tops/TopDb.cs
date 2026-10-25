@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using JacRed.Infrastructure.Logging;
 using JacRed.Infrastructure.Persistence;
 using JacRed.Infrastructure.Indexers;
@@ -52,7 +54,7 @@ namespace JacRed.Infrastructure.Tops
 
         #region Build
 
-        public static void Build()
+        public static async Task BuildAsync(CancellationToken cancellationToken = default)
         {
             var conf = AppInit.conf?.top;
             if (conf == null || !conf.enable)
@@ -84,6 +86,12 @@ namespace JacRed.Infrastructure.Tops
                     // в кэш не кладём, следующий тик дочитает
                     if (reads >= conf.maxShardsPerTick)
                         continue;
+
+                    // кооперативный рёбилд: пауза каждые 100 чтений, иначе
+                    // плотный цикл декомпрессии душит поисковый API на слабом VPS
+                    // (torznab-поиски падали в 20с-таймаут)
+                    if (reads > 0 && reads % 100 == 0)
+                        await Task.Delay(50, cancellationToken);
 
                     reads++;
                     cr = new CachedRow { fileTime = s.Value.fileTime, row = Aggregate(s.Key, FileDB.OpenRead(s.Key, cache: false)) };
